@@ -34,7 +34,7 @@ tags: [backend, ai]   # up to 5
 Created once, never through public signup (the `senotify` handle is reserved):
 
 ```sh
-docker exec -it -e OWNER_EMAIL=you@example.com -e OWNER_PASSWORD='...' mild node scripts/seed-owner.mjs
+docker exec -it mild node scripts/seed-owner.mjs   # prompts for email + hidden password
 ```
 
 Re-running it resets the password.
