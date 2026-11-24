@@ -4,7 +4,7 @@ import path from "node:path";
 import matter from "gray-matter";
 import { marked } from "marked";
 import { db } from "./db";
-import { savePost } from "./posts";
+import { deletePost, savePost } from "./posts";
 
 export const OWNER = "senotify";
 // Read at runtime from the image, never traced into the server bundle.
@@ -23,7 +23,20 @@ export function syncContentPosts(): { created: number; updated: number; skipped:
     console.warn(`[content-sync] no @${OWNER} account yet; run scripts/seed-owner.mjs`);
     return res;
   }
-  for (const file of fs.readdirSync(/*turbopackIgnore: true*/ CONTENT_DIR).filter((f) => f.endsWith(".md")).sort()) {
+  const files = fs.readdirSync(/*turbopackIgnore: true*/ CONTENT_DIR).filter((f) => f.endsWith(".md")).sort();
+  // A post whose file was removed from git is removed from the site too.
+  // Guarded on a non-empty listing so a broken image can't wipe everything.
+  if (files.length) {
+    const known = new Set(files);
+    const rows = db().prepare("SELECT id, source_file FROM posts WHERE source_file IS NOT NULL").all() as { id: number; source_file: string }[];
+    for (const r of rows) {
+      if (!known.has(r.source_file)) {
+        deletePost(r.id);
+        console.log(`[content-sync] removed ${r.source_file}`);
+      }
+    }
+  }
+  for (const file of files) {
     try {
       const raw = fs.readFileSync(/*turbopackIgnore: true*/ path.join(/*turbopackIgnore: true*/ CONTENT_DIR, file), "utf8");
       const hash = crypto.createHash("sha256").update(raw).digest("hex");
