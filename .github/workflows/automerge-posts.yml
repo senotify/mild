@@ -1,0 +1,47 @@
+# The daily writing routine may only be able to push a claude/* branch. If its
+# PR touches nothing but content/posts/*.md, merge it and deploy. A merge made
+# with GITHUB_TOKEN does not fire the push trigger, so dispatch Deploy directly
+# (workflow_dispatch is the documented exception).
+name: Auto-merge daily posts
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [master]
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+jobs:
+  merge:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check that only post files changed
+        id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          files=$(gh api "repos/${{ github.repository }}/pulls/$PR/files" --paginate --jq '.[].filename')
+          echo "$files"
+          if [ -z "$files" ]; then echo "ok=false" >> "$GITHUB_OUTPUT"; exit 0; fi
+          if grep -vqE '^content/posts/[A-Za-z0-9._-]+\.md$' <<<"$files"; then
+            echo "PR touches files outside content/posts; leaving it for a human."
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Merge and deploy
+        if: steps.check.outputs.ok == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          gh pr merge "$PR" --repo "${{ github.repository }}" --squash --delete-branch
+          gh workflow run deploy.yml --repo "${{ github.repository }}" --ref master

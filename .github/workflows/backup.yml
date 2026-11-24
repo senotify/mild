@@ -1,0 +1,39 @@
+# Off-box backup: the old Hostinger server died with nothing recoverable.
+# Snapshots the SQLite DB (online, consistent) plus uploads, keeps 90 days.
+name: Backup
+
+on:
+  schedule:
+    - cron: "30 19 * * *" # 02:30 WIB
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Snapshot over SSH
+        env:
+          SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+          HOST: ${{ secrets.VPS_HOST }}
+          USER: ${{ secrets.VPS_USER }}
+        run: |
+          set -euo pipefail
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy
+          chmod 600 ~/.ssh/deploy
+          ssh-keyscan -H "$HOST" >> ~/.ssh/known_hosts 2>/dev/null
+          ssh -i ~/.ssh/deploy -o IdentitiesOnly=yes "$USER@$HOST" 'bash -euo pipefail -s' > mild-backup.tgz <<'REMOTE'
+            docker exec mild sh -c 'rm -f /data/backup.db && sqlite3 /data/mild.db ".backup /data/backup.db" && tar czf - -C /data backup.db uploads && rm -f /data/backup.db'
+          REMOTE
+          ls -la mild-backup.tgz
+          tar tzf mild-backup.tgz | head -5
+          test "$(stat -c %s mild-backup.tgz)" -gt 1000
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mild-backup-${{ github.run_id }}
+          path: mild-backup.tgz
+          retention-days: 90
