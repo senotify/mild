@@ -49,6 +49,35 @@ lesson; the reader should still leave knowing exactly what to do.
   joke needs explaining, cut it.
 - Funny is optional, accurate is not. When a joke and clarity conflict,
   clarity wins.
+
+## Make it sound like a person, not a polished essay
+
+The post should read like a real engineer typed it in one sitting, not like it
+went through three rounds of editing. Loose and a bit messy in *structure and
+rhythm*, never sloppy in *facts or code*.
+
+- Uneven is good. Sections don't need equal length. One section can be two
+  sentences. Not every post needs a code block, a list, or a neat outline.
+- Vary sentence length a lot. Fragments are fine. So is starting a sentence
+  with "And" or "But". Contractions always (don't, it's, you'll).
+- Have opinions and some hedging: "I'd probably just use X here", "honestly,
+  this one surprised me", "I could be wrong, but...", "your mileage may vary".
+- Small asides and tangents in parentheses, then come back. The occasional
+  "anyway" or "ok, back to the actual problem".
+- Admit trade-offs and unknowns instead of wrapping everything up perfectly.
+  It's fine to end with "I still haven't found a clean answer for Y."
+- Prefer prose over bullet points. Use a list only when it's genuinely a list.
+- Avoid the tells of machine-written text:
+  - Groups of exactly three ("fast, reliable, and scalable") over and over.
+  - "It's not just X, it's Y." / "Here's the thing:" / "The bottom line?"
+  - Every paragraph ending on a tidy punchline or moral.
+  - A recap section that repeats every heading.
+  - Overly symmetric structure (problem, solution, benefits, conclusion).
+  - Words like "crucial", "robust", "seamless", "leverage", "landscape",
+    "navigate", "unlock", "elevate", "realm", "testament".
+- Spelling, grammar and code stay correct. No fake typos: they read as
+  careless to a hiring manager and they break code. The human feel comes from
+  voice and rhythm, not mistakes.
 - **Never use em dashes (—) or en dashes (–).** Use commas, colons, parentheses
   or separate sentences.
 - Avoid filler phrases: "In today's fast-paced world", "Let's dive in",
