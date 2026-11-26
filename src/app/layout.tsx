@@ -13,6 +13,8 @@ export const metadata: Metadata = {
   openGraph: { siteName: SITE_NAME, type: "website" },
   twitter: { card: "summary_large_image" },
   alternates: { types: { "application/rss+xml": `${SITE_URL}/feed.xml` } },
+  // Google Search Console ownership proof (public by design).
+  verification: { google: "9z-ZvqE1LNOtubN4gunl0kbNQLyJ_lPCRMbtp1sMUfY" },
 };
 
 export const viewport: Viewport = {
