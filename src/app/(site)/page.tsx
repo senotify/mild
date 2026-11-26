@@ -17,13 +17,13 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ f
   return (
     <>
       {!u && (
-        <section className="border-b border-ink bg-[#f7f4ed]">
+        <section className="border-b border-ink bg-hero">
           <div className="max-w-[1192px] mx-auto px-6 py-16 sm:py-24">
             <h1 className="font-serif text-[56px] leading-[56px] sm:text-[96px] sm:leading-[95px] tracking-[-0.04em] text-ink">
               {SITE_TAGLINE}
             </h1>
             <p className="mt-8 text-[20px] sm:text-[22px] text-ink max-w-md">A place to read, write, and think out loud about tech.</p>
-            <Link href="/signup" className="inline-block mt-10 bg-ink text-white rounded-full px-10 py-2 text-xl hover:bg-black">
+            <Link href="/signup" className="inline-block mt-10 bg-ink text-bg rounded-full px-10 py-2 text-xl hover:opacity-85">
               Start reading
             </Link>
           </div>
@@ -31,7 +31,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ f
       )}
       <main className="max-w-[1336px] mx-auto px-4 sm:px-6 flex gap-16 justify-evenly">
         <div className="w-full max-w-[728px] pt-6">
-          <nav className="flex gap-8 border-b border-line text-sm sticky top-[57px] bg-white z-10">
+          <nav className="flex gap-8 border-b border-line text-sm sticky top-[57px] bg-bg z-10">
             <Link href="/" className={`py-4 -mb-px ${tab === "foryou" ? "border-b border-ink text-ink" : "text-muted hover:text-ink"}`}>
               For you
             </Link>
@@ -58,7 +58,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ f
             <h2 className="font-medium text-base text-ink">Recommended topics</h2>
             <div className="mt-4 flex flex-wrap gap-2">
               {tags.map((t) => (
-                <Link key={t.tag} href={`/tag/${t.tag}`} className="bg-[#f2f2f2] rounded-full px-4 py-2 text-sm text-ink hover:bg-[#e8e8e8]">
+                <Link key={t.tag} href={`/tag/${t.tag}`} className="bg-chip rounded-full px-4 py-2 text-sm text-ink hover:bg-chip-hover">
                   {t.tag}
                 </Link>
               ))}

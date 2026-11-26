@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useActionState } from "react";
 import { loginAction, signupAction, type FormState } from "@/app/actions";
 
-const input = "w-full border-b border-[#e6e6e6] focus:border-ink outline-none py-2 text-base text-ink bg-transparent";
+const input = "w-full border-b border-line-strong focus:border-ink outline-none py-2 text-base text-ink bg-transparent";
 
 export function AuthForm({ mode, next }: { mode: "login" | "signup"; next: string }) {
   const [state, action, pending] = useActionState<FormState, FormData>(mode === "login" ? loginAction : signupAction, undefined);
@@ -37,8 +37,8 @@ export function AuthForm({ mode, next }: { mode: "login" | "signup"; next: strin
           // Honeypot for bots; hidden from people and assistive tech.
           <input name="website" tabIndex={-1} autoComplete="off" aria-hidden className="absolute -left-[9999px] h-0 w-0 opacity-0" />
         )}
-        {state?.error && <p className="text-sm text-red-700">{state.error}</p>}
-        <button disabled={pending} className="w-full bg-ink text-white rounded-full py-2.5 hover:bg-black disabled:opacity-50">
+        {state?.error && <p className="text-sm text-danger">{state.error}</p>}
+        <button disabled={pending} className="w-full bg-ink text-bg rounded-full py-2.5 hover:opacity-85 disabled:opacity-50">
           {pending ? "One moment..." : mode === "login" ? "Sign in" : "Create account"}
         </button>
       </form>

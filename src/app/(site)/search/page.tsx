@@ -24,7 +24,7 @@ export default async function SearchPage({ searchParams }: P) {
     <main className="max-w-[728px] mx-auto px-6 pt-10">
       <form action="/search" className="flex items-center gap-2 border-b border-line pb-3">
         <SearchIcon className="text-muted" />
-        <input name="q" defaultValue={query} autoFocus placeholder="Search Mild" className="w-full text-2xl outline-none placeholder:text-[#b3b3b1]" />
+        <input name="q" defaultValue={query} autoFocus placeholder="Search Mild" className="w-full text-2xl outline-none placeholder:text-faint" />
         <input type="hidden" name="tab" value={tab} />
       </form>
       {query && (
@@ -54,7 +54,7 @@ export default async function SearchPage({ searchParams }: P) {
           ) : tab === "tags" ? (
             <div className="py-8 flex flex-wrap gap-3">
               {searchTags(query).map((t) => (
-                <Link key={t.tag} href={`/tag/${t.tag}`} className="bg-[#f2f2f2] rounded-full px-4 py-2 text-sm text-ink">
+                <Link key={t.tag} href={`/tag/${t.tag}`} className="bg-chip rounded-full px-4 py-2 text-sm text-ink">
                   {t.tag} <span className="text-muted">· {t.n}</span>
                 </Link>
               ))}

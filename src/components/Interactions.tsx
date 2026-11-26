@@ -46,7 +46,7 @@ export function ClapButton({ postId, total, mine, own }: { postId: number; total
       <ClapIcon filled={m > 0} className={m > 0 ? "text-ink" : ""} />
       <span className="text-[13px]">{t > 0 ? compact(t) : ""}</span>
       {burst > 0 && (
-        <span className="absolute -top-9 left-1/2 -translate-x-1/2 bg-ink text-white text-xs rounded-full w-8 h-8 flex items-center justify-center">
+        <span className="absolute -top-9 left-1/2 -translate-x-1/2 bg-ink text-bg text-xs rounded-full w-8 h-8 flex items-center justify-center">
           +{Math.min(50, m + burst)}
         </span>
       )}
@@ -103,7 +103,7 @@ export function ShareButton({ title }: { title: string }) {
       }}
     >
       <ShareIcon />
-      {copied && <span className="absolute top-8 right-0 whitespace-nowrap bg-ink text-white text-xs rounded px-2 py-1">Link copied</span>}
+      {copied && <span className="absolute top-8 right-0 whitespace-nowrap bg-ink text-bg text-xs rounded px-2 py-1">Link copied</span>}
     </button>
   );
 }
@@ -115,7 +115,7 @@ export function FollowButton({ username, following, small }: { username: string;
   const base = small ? "text-sm px-3 py-1" : "text-sm px-4 py-2";
   return (
     <button
-      className={`${base} rounded-full ${f ? "border border-ink text-ink" : "bg-ink text-white hover:bg-black"}`}
+      className={`${base} rounded-full ${f ? "border border-ink text-ink" : "bg-ink text-bg hover:opacity-85"}`}
       onClick={() =>
         start(async () => {
           setF(!f);

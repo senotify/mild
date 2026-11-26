@@ -7,7 +7,7 @@ export function SettingsForm({ name, bio, avatar }: { name: string; bio: string;
   const [state, action, pending] = useActionState<FormState, FormData>(updateProfileAction, undefined);
   const [img, setImg] = useState(avatar || "");
   const [err, setErr] = useState("");
-  const input = "w-full border-b border-[#e6e6e6] focus:border-ink outline-none py-2 text-ink";
+  const input = "w-full border-b border-line-strong focus:border-ink outline-none py-2 text-ink";
   return (
     <form action={action} className="mt-10 space-y-8">
       <div className="flex items-center gap-4">
@@ -34,9 +34,9 @@ export function SettingsForm({ name, bio, avatar }: { name: string; bio: string;
       </div>
       <label className="block text-sm text-muted">Name<input name="name" defaultValue={name} maxLength={60} required className={input} /></label>
       <label className="block text-sm text-muted">Short bio<textarea name="bio" defaultValue={bio} maxLength={300} rows={3} className={input} /></label>
-      {(err || state?.error) && <p className="text-sm text-red-700">{err || state?.error}</p>}
+      {(err || state?.error) && <p className="text-sm text-danger">{err || state?.error}</p>}
       {state && !state.error && !pending && <p className="text-sm text-accent">Saved.</p>}
-      <button disabled={pending} className="bg-accent text-white rounded-full px-5 py-2 text-sm disabled:opacity-50">{pending ? "Saving..." : "Save"}</button>
+      <button disabled={pending} className="bg-accent text-on-accent rounded-full px-5 py-2 text-sm disabled:opacity-50">{pending ? "Saving..." : "Save"}</button>
     </form>
   );
 }

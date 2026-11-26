@@ -9,6 +9,7 @@ import Placeholder from "@tiptap/extension-placeholder";
 import { savePostAction } from "@/app/actions";
 import { Logo } from "./Logo";
 import { Avatar } from "./Avatar";
+import { ThemeToggle } from "./ThemeToggle";
 
 type Initial = { id?: number; title: string; subtitle: string; html: string; tags: string[]; cover: string | null; status?: string };
 
@@ -88,22 +89,23 @@ export function Editor({ initial, user }: { initial: Initial; user: { name: stri
     } catch (e) { setError((e as Error).message); }
   };
 
-  const tb = "px-2 py-1 rounded text-sm hover:bg-[#f2f2f2]";
-  const on = (n: string, a?: object) => (editor?.isActive(n, a) ? "bg-[#f2f2f2] text-ink" : "text-muted");
+  const tb = "px-2 py-1 rounded text-sm hover:bg-chip";
+  const on = (n: string, a?: object) => (editor?.isActive(n, a) ? "bg-chip text-ink" : "text-muted");
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-bg">
       <header className="max-w-[1032px] mx-auto px-6 h-[65px] flex items-center gap-4">
         <Link href="/" className="text-ink"><Logo /></Link>
         <span className="text-sm text-ink hidden sm:inline">Draft in {user.name}</span>
         <span className="text-sm text-muted">{status === "saving" ? "Saving..." : status === "saved" ? "Saved" : ""}</span>
         <div className="ml-auto flex items-center gap-4">
+          <ThemeToggle />
           {initial.status === "published" ? (
-            <button onClick={async () => { const r = await save(true); if (r?.url) router.push(r.url); }} className="bg-accent hover:bg-accent-dark text-white text-sm rounded-full px-4 py-1.5">
+            <button onClick={async () => { const r = await save(true); if (r?.url) router.push(r.url); }} className="bg-accent hover:bg-accent-dark text-on-accent text-sm rounded-full px-4 py-1.5">
               Save and publish
             </button>
           ) : (
-            <button disabled={!title.trim()} onClick={() => setShowPublish(true)} className="bg-accent hover:bg-accent-dark text-white text-sm rounded-full px-4 py-1.5 disabled:opacity-40">
+            <button disabled={!title.trim()} onClick={() => setShowPublish(true)} className="bg-accent hover:bg-accent-dark text-on-accent text-sm rounded-full px-4 py-1.5 disabled:opacity-40">
               Publish
             </button>
           )}
@@ -111,7 +113,7 @@ export function Editor({ initial, user }: { initial: Initial; user: { name: stri
         </div>
       </header>
 
-      <div className="sticky top-0 z-10 bg-white/95 border-b border-line">
+      <div className="sticky top-0 z-10 bg-bg/95 border-b border-line">
         <div className="max-w-[740px] mx-auto px-6 py-2 flex flex-wrap gap-1">
           <button className={`${tb} font-bold ${on("bold")}`} onClick={() => editor?.chain().focus().toggleBold().run()}>B</button>
           <button className={`${tb} italic ${on("italic")}`} onClick={() => editor?.chain().focus().toggleItalic().run()}>i</button>
@@ -140,7 +142,7 @@ export function Editor({ initial, user }: { initial: Initial; user: { name: stri
       </div>
 
       <main className="max-w-[740px] mx-auto px-6 pt-10 pb-40">
-        {error && <p className="mb-4 text-sm text-red-700">{error}</p>}
+        {error && <p className="mb-4 text-sm text-danger">{error}</p>}
         <textarea
           ref={titleRef}
           value={title}
@@ -149,7 +151,7 @@ export function Editor({ initial, user }: { initial: Initial; user: { name: stri
           placeholder="Title"
           rows={1}
           maxLength={200}
-          className="w-full resize-none overflow-hidden outline-none font-serif text-[42px] leading-[52px] text-ink placeholder:text-[#b3b3b1]"
+          className="w-full resize-none overflow-hidden outline-none font-serif text-[42px] leading-[52px] text-ink placeholder:text-faint"
         />
         <div className="mild-editor mt-4">
           <EditorContent editor={editor} />
@@ -157,11 +159,11 @@ export function Editor({ initial, user }: { initial: Initial; user: { name: stri
       </main>
 
       {showPublish && (
-        <div className="fixed inset-0 z-50 bg-white overflow-y-auto">
+        <div className="fixed inset-0 z-50 bg-bg overflow-y-auto">
           <div className="max-w-[1040px] mx-auto px-6 py-10 sm:py-20 grid sm:grid-cols-2 gap-12">
             <div>
               <h2 className="font-bold text-ink">Story Preview</h2>
-              <label className="mt-4 block bg-[#fafafa] aspect-[16/9] flex items-center justify-center text-sm text-muted cursor-pointer overflow-hidden">
+              <label className="mt-4 block bg-field aspect-[16/9] flex items-center justify-center text-sm text-muted cursor-pointer overflow-hidden">
                 {cover ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={cover} alt="" className="w-full h-full object-cover" />
@@ -191,9 +193,9 @@ export function Editor({ initial, user }: { initial: Initial; user: { name: stri
             <div>
               <p className="text-ink">Publishing to: <b>{user.name}</b></p>
               <p className="mt-6 text-sm text-muted">Add or change topics (up to 5) so readers know what your story is about</p>
-              <div className="mt-3 bg-[#fafafa] p-2 flex flex-wrap gap-2 min-h-12">
+              <div className="mt-3 bg-field p-2 flex flex-wrap gap-2 min-h-12">
                 {tags.map((t) => (
-                  <span key={t} className="bg-white border border-line rounded px-2 py-1 text-sm flex items-center gap-2">
+                  <span key={t} className="bg-bg border border-line rounded px-2 py-1 text-sm flex items-center gap-2">
                     {t}
                     <button onClick={() => setTags(tags.filter((x) => x !== t))} aria-label={`Remove ${t}`}>×</button>
                   </span>
@@ -209,7 +211,7 @@ export function Editor({ initial, user }: { initial: Initial; user: { name: stri
                   />
                 )}
               </div>
-              {error && <p className="mt-4 text-sm text-red-700">{error}</p>}
+              {error && <p className="mt-4 text-sm text-danger">{error}</p>}
               <div className="mt-8 flex items-center gap-4">
                 <button
                   disabled={busy}
@@ -219,7 +221,7 @@ export function Editor({ initial, user }: { initial: Initial; user: { name: stri
                     setBusy(false);
                     if (r?.url) router.push(r.url);
                   }}
-                  className="bg-accent hover:bg-accent-dark text-white text-sm rounded-full px-4 py-2 disabled:opacity-50"
+                  className="bg-accent hover:bg-accent-dark text-on-accent text-sm rounded-full px-4 py-2 disabled:opacity-50"
                 >
                   {busy ? "Publishing..." : "Publish now"}
                 </button>

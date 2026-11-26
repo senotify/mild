@@ -17,7 +17,7 @@ export default async function Stories({ searchParams }: { searchParams: Promise<
     <main className="max-w-[728px] mx-auto px-6 pt-14">
       <div className="flex items-center justify-between">
         <h1 className="text-[42px] font-medium tracking-tight text-ink">Your stories</h1>
-        <Link href="/new-story" className="bg-accent text-white text-sm rounded-full px-4 py-2">Write a story</Link>
+        <Link href="/new-story" className="bg-accent text-on-accent text-sm rounded-full px-4 py-2">Write a story</Link>
       </div>
       <nav className="mt-8 flex gap-8 border-b border-line text-sm">
         <Link href="/me/stories?tab=drafts" className={`pb-4 -mb-px ${tab === "draft" ? "border-b border-ink text-ink" : "text-muted"}`}>Drafts</Link>

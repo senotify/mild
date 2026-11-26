@@ -42,12 +42,12 @@ export default async function Admin() {
                     <>
                       <form action={adminBanAction} className="inline">
                         <input type="hidden" name="id" value={x.id} />
-                        <button className={`${btn} ${x.is_banned ? "border-accent text-accent" : "border-amber-600 text-amber-700"}`}>{x.is_banned ? "Unban" : "Ban"}</button>
+                        <button className={`${btn} ${x.is_banned ? "border-accent text-accent" : "border-amber-600 text-amber-700 dark:text-amber-400"}`}>{x.is_banned ? "Unban" : "Ban"}</button>
                       </form>
                       <form action={adminBanAction} className="inline">
                         <input type="hidden" name="id" value={x.id} />
                         <input type="hidden" name="purge" value="1" />
-                        <button className={`${btn} border-red-700 text-red-700`}>Delete user + content</button>
+                        <button className={`${btn} border-danger text-danger`}>Delete user + content</button>
                       </form>
                     </>
                   )}
@@ -64,7 +64,7 @@ export default async function Admin() {
             <Link href={`/@${p.username}/${p.slug}`} className="text-ink truncate">{p.title} <span className="text-muted">by @{p.username} · {fmtDate(p.published_at)}</span></Link>
             <form action={deletePostAction}>
               <input type="hidden" name="id" value={p.id} />
-              <button className={`${btn} border-red-700 text-red-700`}>Delete</button>
+              <button className={`${btn} border-danger text-danger`}>Delete</button>
             </form>
           </div>
         ))}

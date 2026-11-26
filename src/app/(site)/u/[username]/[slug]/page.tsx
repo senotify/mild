@@ -96,7 +96,7 @@ export default async function StoryPage(props: Params) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
       <article className="max-w-[680px] mx-auto pt-10 sm:pt-14">
         {p.status !== "published" && (
-          <div className="mb-6 text-sm bg-amber-50 border border-amber-200 rounded px-4 py-2">Draft, only visible to you.</div>
+          <div className="mb-6 text-sm bg-amber-50 border border-amber-200 dark:bg-amber-950/40 dark:border-amber-800 rounded px-4 py-2">Draft, only visible to you.</div>
         )}
         <h1 className="font-sans font-bold text-[32px] leading-[38px] sm:text-[42px] sm:leading-[52px] tracking-[-0.022em] text-ink">{p.title}</h1>
         {p.subtitle && <p className="mt-3 text-[20px] leading-7 sm:text-[22px] text-muted">{p.subtitle}</p>}
@@ -126,7 +126,7 @@ export default async function StoryPage(props: Params) {
             <Link href={`/edit/${p.id}`} className="text-accent hover:underline">Edit story</Link>
             <form action={deletePostAction}>
               <input type="hidden" name="id" value={p.id} />
-              <button className="text-red-700 hover:underline">Delete</button>
+              <button className="text-danger hover:underline">Delete</button>
             </form>
           </div>
         ) : null}
@@ -141,7 +141,7 @@ export default async function StoryPage(props: Params) {
         {p.tags.length > 0 && (
           <div className="mt-12 flex flex-wrap gap-2">
             {p.tags.map((t) => (
-              <Link key={t} href={`/tag/${t}`} className="bg-[#f2f2f2] rounded-full px-4 py-2 text-sm text-ink hover:bg-[#e8e8e8]">{t}</Link>
+              <Link key={t} href={`/tag/${t}`} className="bg-chip rounded-full px-4 py-2 text-sm text-ink hover:bg-chip-hover">{t}</Link>
             ))}
           </div>
         )}

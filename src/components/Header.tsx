@@ -4,20 +4,22 @@ import { Logo } from "./Logo";
 import { Avatar } from "./Avatar";
 import { SearchIcon, WriteIcon } from "./Icons";
 import { UserMenu } from "./UserMenu";
+import { ThemeToggle } from "./ThemeToggle";
 
 export async function Header() {
   const u = await currentUser();
   return (
-    <header className="sticky top-0 z-30 bg-white border-b border-line">
+    <header className="sticky top-0 z-30 bg-bg border-b border-line">
       <div className="h-[57px] px-4 sm:px-6 flex items-center gap-4">
         <Link href="/" aria-label="Mild home" className="text-ink">
           <Logo />
         </Link>
-        <form action="/search" className="hidden sm:flex items-center gap-2 bg-[#f9f9f9] rounded-full h-10 px-3 w-60">
+        <form action="/search" className="hidden sm:flex items-center gap-2 bg-field rounded-full h-10 px-3 w-60">
           <SearchIcon className="text-muted" />
           <input name="q" placeholder="Search" aria-label="Search" className="bg-transparent outline-none text-sm w-full placeholder:text-muted" />
         </form>
         <div className="ml-auto flex items-center gap-6">
+          <ThemeToggle />
           <Link href="/search" className="sm:hidden text-muted hover:text-ink" aria-label="Search">
             <SearchIcon />
           </Link>
@@ -30,7 +32,7 @@ export async function Header() {
             </UserMenu>
           ) : (
             <div className="flex items-center gap-4 text-sm">
-              <Link href="/signup" className="bg-ink text-white rounded-full px-3 py-2 hover:bg-black">
+              <Link href="/signup" className="bg-ink text-bg rounded-full px-3 py-2 hover:opacity-85">
                 Sign up
               </Link>
               <Link href="/login" className="text-muted hover:text-ink">

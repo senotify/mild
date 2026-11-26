@@ -18,7 +18,7 @@ export function UserMenu({ username, name, isAdmin, children }: { username: stri
         {children}
       </button>
       {open && (
-        <div className="absolute right-0 mt-2 w-64 bg-white rounded shadow-[0_2px_10px_rgba(0,0,0,0.15)] py-4 z-40">
+        <div className="absolute right-0 mt-2 w-64 bg-bg rounded shadow-[var(--menu-shadow)] py-4 z-40">
           <Link href={`/@${username}`} className="px-6 pb-3 mb-2 border-b border-line block" onClick={() => setOpen(false)}>
             <div className="text-sm font-medium text-ink">{name}</div>
             <div className="text-sm text-muted">View profile</div>
