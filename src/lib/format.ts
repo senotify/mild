@@ -1,13 +1,17 @@
-export function fmtDate(unix: number | null | undefined, withYear?: boolean) {
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+/** Always "DD Mon YYYY" in Jakarta time, e.g. "06 Nov 2026". Fixed month names,
+ *  because ICU's en-GB data spells September "Sept". */
+export function fmtDate(unix: number | null | undefined, _withYear?: boolean) {
   if (!unix) return "";
-  const d = new Date(unix * 1000);
-  const sameYear = d.getFullYear() === new Date().getFullYear();
-  return d.toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    ...(withYear || !sameYear ? { year: "numeric" } : {}),
+  const parts = new Intl.DateTimeFormat("en-US", {
+    day: "2-digit",
+    month: "numeric",
+    year: "numeric",
     timeZone: "Asia/Jakarta",
-  });
+  }).formatToParts(new Date(unix * 1000));
+  const get = (t: string) => parts.find((p) => p.type === t)?.value ?? "";
+  return `${get("day")} ${MONTHS[Number(get("month")) - 1]} ${get("year")}`;
 }
 
 export function compact(n: number) {
