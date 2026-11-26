@@ -99,7 +99,6 @@ export default async function StoryPage(props: Params) {
           <div className="mb-6 text-sm bg-amber-50 border border-amber-200 dark:bg-amber-950/40 dark:border-amber-800 rounded px-4 py-2">Draft, only visible to you.</div>
         )}
         <h1 className="font-sans font-bold text-[32px] leading-[38px] sm:text-[42px] sm:leading-[52px] tracking-[-0.022em] text-ink">{p.title}</h1>
-        {p.subtitle && <p className="mt-3 text-[20px] leading-7 sm:text-[22px] text-muted">{p.subtitle}</p>}
 
         <div className="mt-8 mb-8 flex items-center gap-3">
           <Link href={`/@${p.username}`}><Avatar name={p.author_name} src={p.author_avatar} size={44} /></Link>
