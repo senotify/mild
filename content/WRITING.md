@@ -45,8 +45,15 @@ lesson; the reader should still leave knowing exactly what to do.
 - Never punch down: no jokes about specific people, companies, users,
   languages' communities, or "dumb juniors". Laugh at systems, bugs, and
   ourselves.
-- No meme speak, no emoji, no "lol", no forced puns stacked on puns. If a
-  joke needs explaining, cut it.
+- Light meme slang is welcome, used the way engineers actually talk in team
+  chat: "lowkey", "ngl", "it's giving legacy monolith", "skill issue" (aimed
+  at ourselves or the system, never the reader), "this bug lives rent free in
+  my head", "touch grass", "no cap", "main character energy", "the vibes are
+  off". Use roughly 2-4 per post, dropped into prose where they land
+  naturally, not crammed together.
+- Keep slang out of code, out of the frontmatter subtitle, and mostly out of
+  titles (titles must stay searchable). No emoji. No forced puns stacked on
+  puns. If a joke needs explaining, cut it.
 - Funny is optional, accurate is not. When a joke and clarity conflict,
   clarity wins.
 
