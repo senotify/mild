@@ -102,3 +102,16 @@ subtitle: "One sentence on what the reader will get (under 160 chars)"
 tags: [3-5 lowercase tags, hyphenated, e.g. backend, system-design, go]
 ---
 ```
+
+## Titles that people can find
+
+Posts are found through search, so the title should contain the words a developer
+would actually type into Google, not only a clever line.
+
+- Lead with the search phrase: "How to Validate LLM JSON Output in TypeScript with Zod"
+  beats "Treat LLM JSON Output Like Untrusted User Input". Patterns that work:
+  "How to X in Y", "X vs Y: ...", "Why X happens (and how to fix it)".
+- Keep it under 60 characters so Google doesn't cut it off (the site adds " | Mild").
+- Put the memorable hook in the subtitle; it becomes the meta description.
+- Use the main phrase naturally once in the first two paragraphs, and name the
+  concrete tools (Zod, Postgres, Redis...) people search for.
