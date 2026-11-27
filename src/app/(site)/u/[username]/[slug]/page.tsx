@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { getPostBySlug, postUrl, postsByAuthor } from "@/lib/posts";
+import { getPostBySlug, postImage, postUrl, postsByAuthor } from "@/lib/posts";
 import { SITE_NAME, SITE_URL, fmtDate } from "@/lib/format";
 import { Avatar } from "@/components/Avatar";
 import { BookmarkButton, ClapButton, FollowButton, ResponsesLink, ShareButton } from "@/components/Interactions";
@@ -41,9 +41,9 @@ export async function generateMetadata(props: Params): Promise<Metadata> {
       modifiedTime: new Date(p.updated_at * 1000).toISOString(),
       authors: [p.author_name],
       tags: p.tags,
-      ...(p.cover ? { images: [{ url: p.cover }] } : {}),
+      images: [{ url: postImage(p), width: 1200, height: 630, alt: p.title }],
     },
-    twitter: { card: p.cover ? "summary_large_image" : "summary", title: p.title, description },
+    twitter: { card: "summary_large_image", title: p.title, description, images: [postImage(p)] },
   };
 }
 
@@ -74,7 +74,7 @@ export default async function StoryPage(props: Params) {
     author: { "@type": "Person", name: p.author_name, url: `${SITE_URL}/@${p.username}` },
     mainEntityOfPage: `${SITE_URL}${path}`,
     keywords: p.tags.join(", "),
-    ...(p.cover ? { image: p.cover.startsWith("/") ? `${SITE_URL}${p.cover}` : p.cover } : {}),
+    image: postImage(p),
     publisher: { "@type": "Organization", name: SITE_NAME, url: SITE_URL, logo: { "@type": "ImageObject", url: `${SITE_URL}/icon.png` } },
   };
 
