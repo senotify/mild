@@ -1,5 +1,6 @@
 import crypto from "node:crypto";
 import { db, reindexPost } from "./db";
+import { SITE_URL } from "./format";
 import { cleanPostHtml, htmlToText, readingMinutes } from "./sanitize";
 
 export type PostCard = {
@@ -256,4 +257,10 @@ export function deletePost(id: number) {
 
 export function postUrl(username: string, slug: string) {
   return `/@${username}/${slug}`;
+}
+
+/** Absolute URL of a post's share image: its own cover, or the generated card at /og/<slug>. */
+export function postImage(p: { slug: string; cover: string | null }) {
+  if (p.cover) return p.cover.startsWith("/") ? `${SITE_URL}${p.cover}` : p.cover;
+  return `${SITE_URL}/og/${p.slug}`;
 }
