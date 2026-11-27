@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 import { getPostBySlug } from "@/lib/posts";
-import { SITE_NAME, SITE_URL, fmtDate } from "@/lib/format";
+import { SITE_NAME, fmtDate } from "@/lib/format";
 
 // better-sqlite3 needs Node, not the edge runtime.
 export const runtime = "nodejs";
@@ -18,7 +18,6 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
 
   const title = p.title.length > 110 ? `${p.title.slice(0, 107)}…` : p.title;
   const subtitle = p.subtitle.length > 150 ? `${p.subtitle.slice(0, 147)}…` : p.subtitle;
-  const host = new URL(SITE_URL).host;
 
   return new ImageResponse(
     (
@@ -61,7 +60,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
           {subtitle && <div style={{ fontSize: 30, lineHeight: 1.35, color: "#555555" }}>{subtitle}</div>}
         </div>
 
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 26, color: "#6b6b6b" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 32, fontSize: 26, color: "#6b6b6b" }}>
           <div style={{ display: "flex", gap: 14 }}>
             <span style={{ color: "#191919", fontWeight: 700 }}>{p.author_name}</span>
             <span>·</span>
@@ -75,7 +74,6 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
                 {t}
               </span>
             ))}
-            <span style={{ marginLeft: 8 }}>{host}</span>
           </div>
         </div>
       </div>
