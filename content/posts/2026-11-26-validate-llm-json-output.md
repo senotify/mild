@@ -1,12 +1,12 @@
 ---
-title: "Treat LLM JSON Output Like Untrusted User Input"
-subtitle: "A model that returns JSON is not a typed function. Here is a TypeScript pattern with schema validation, bounded repair and a safe fallback."
+title: "How to Validate LLM JSON Output in TypeScript with Zod"
+subtitle: "Treat model output like untrusted user input: schema validation with Zod, bounded repair and a safe fallback, in plain TypeScript."
 tags: [ai, llm, typescript, backend]
 ---
 
 The first time you ask a language model for JSON and it works, it feels like you have a typed function. Then it returns the object wrapped in a markdown fence, or adds a field you did not ask for, or sends a string where you expected a number. Your parser throws, or worse, it succeeds and the bad data flows downstream.
 
-I think the right mental model is simple: model output is untrusted user input. You would never pass a request body straight into your database layer. The same discipline applies here, and it is not much code.
+I think the right mental model is simple: model output is untrusted user input. You would never pass a request body straight into your database layer. The same discipline applies here: validate the model's JSON against a schema (I use Zod) before anything downstream trusts it. It is not much code.
 
 ## Why "just parse it" fails
 
