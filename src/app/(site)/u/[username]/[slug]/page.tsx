@@ -75,7 +75,7 @@ export default async function StoryPage(props: Params) {
     mainEntityOfPage: `${SITE_URL}${path}`,
     keywords: p.tags.join(", "),
     ...(p.cover ? { image: p.cover.startsWith("/") ? `${SITE_URL}${p.cover}` : p.cover } : {}),
-    publisher: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
+    publisher: { "@type": "Organization", name: SITE_NAME, url: SITE_URL, logo: { "@type": "ImageObject", url: `${SITE_URL}/icon.png` } },
   };
 
   const actionBar = (

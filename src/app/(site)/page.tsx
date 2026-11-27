@@ -2,7 +2,7 @@ import Link from "next/link";
 import { currentUser } from "@/lib/auth";
 import { followingPosts, latestPosts, topTags } from "@/lib/posts";
 import { PostList } from "@/components/PostCard";
-import { SITE_TAGLINE } from "@/lib/format";
+import { SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 
@@ -14,8 +14,19 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ f
   const posts = tab === "following" ? followingPosts(u!.id, 30) : latestPosts(20, (pageNum - 1) * 20);
   const tags = topTags(12);
 
+  // Tells Google the site's name ("Mild", not "senotify.com") and its logo.
+  const siteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: SITE_NAME,
+    alternateName: "Mild by senotify",
+    url: `${SITE_URL}/`,
+    publisher: { "@type": "Organization", name: SITE_NAME, url: `${SITE_URL}/`, logo: `${SITE_URL}/icon.png` },
+  };
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd) }} />
       {!u && (
         <section className="border-b border-ink bg-hero">
           <div className="max-w-[1192px] mx-auto px-6 py-16 sm:py-24">
