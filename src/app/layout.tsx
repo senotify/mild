@@ -32,6 +32,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${inter.variable} ${serif.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+        {/* Umami analytics (stats.senotify.com): cookieless; data-domains keeps local development out. */}
+        <script
+          defer
+          src="https://stats.senotify.com/script.js"
+          data-website-id="180197f1-9c2a-465b-b7a8-4f177d1bffeb"
+          data-domains="mild.senotify.com"
+        />
       </head>
       <body className="font-sans min-h-screen">{children}</body>
     </html>
